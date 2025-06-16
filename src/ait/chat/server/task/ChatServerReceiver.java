@@ -1,5 +1,8 @@
 package ait.chat.server.task;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.Socket;
 import java.util.concurrent.BlockingQueue;
 
@@ -14,6 +17,15 @@ public class ChatServerReceiver implements Runnable{
 
     @Override
     public void run() {
-        // TODO Homework
+        try {
+            BufferedReader socketReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            while (true) {
+                String message = socketReader.readLine();
+                messageBox.add(message);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 }
