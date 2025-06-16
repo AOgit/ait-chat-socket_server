@@ -21,6 +21,7 @@ public class ChatServerReceiver implements Runnable{
             BufferedReader socketReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             while (true) {
                 String message = socketReader.readLine();
+                message = String.format("%s:%s|%s", socket.getInetAddress(), socket.getPort(), message);
                 messageBox.add(message);
             }
         } catch (IOException e) {
